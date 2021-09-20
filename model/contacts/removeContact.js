@@ -12,7 +12,7 @@ async function removeContact(contactId) {
 
   allContacts.splice(inx, 1)
   await updateAllContacts(allContacts)
-  return 'Success remove'
+  return 'contact deleted'
 }
 
 module.exports = removeContact
