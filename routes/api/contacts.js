@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { contacts: ctrl } = require('../../controllers')
+const ctrl = require('../../controllers/contacts')
 const { contactSchema } = require('../../schemas')
 const { controllerWrapper, validation } = require('../../middlewares')
 
