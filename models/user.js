@@ -35,7 +35,10 @@ const joiAuthSchema = Joi.object({
   password: Joi.string().required().min(6),
   email: Joi.string()
     .required()
-    .pattern(/^\S+@\S+\.\S+$/),
+    .pattern(/^\S+@\S+\.\S+$/)
+    .messages({
+      'string.pattern.base': 'Please enter the valid email',
+    }),
   subscription: Joi.string().default('starter'),
   token: Joi.string().default(null),
   owner: Joi.string(),
