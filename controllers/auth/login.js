@@ -3,7 +3,7 @@ const { NotFound, Unauthorized } = require('http-errors')
 
 const login = async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({ email }, 'email password')
+  const user = await User.findOne({ email }, 'email password subscription')
 
   if (!user) {
     throw new NotFound('Not found')
@@ -15,12 +15,17 @@ const login = async (req, res) => {
 
   const token = user.createToken()
   await User.findByIdAndUpdate(user._id, { token })
+
+  const response = {
+    email: user.email,
+    subscription: user.subscription,
+  }
   res.json({
     status: 'success',
     code: 200,
     data: {
       token,
-      user,
+      user: response,
     },
   })
 }
