@@ -1,6 +1,5 @@
 const { User } = require('../../models')
 const { NotFound, Unauthorized } = require('http-errors')
-const bCrypt = require('bcryptjs')
 
 const login = async (req, res) => {
   const { email, password } = req.body
@@ -10,7 +9,7 @@ const login = async (req, res) => {
     throw new NotFound('Not found')
   }
 
-  if (!bCrypt.compareSync(password, user.password) || email !== user.email) {
+  if (!user.validPassword(password) || email !== user.email) {
     throw new Unauthorized('Email or password is wrong')
   }
 

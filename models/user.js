@@ -1,5 +1,6 @@
 const { Schema, SchemaTypes, model } = require('mongoose')
 const Joi = require('joi')
+const bCrypt = require('bcryptjs')
 
 const userSchema = Schema(
   {
@@ -43,6 +44,14 @@ const joiAuthSchema = Joi.object({
   token: Joi.string().default(null),
   owner: Joi.string(),
 })
+
+userSchema.methods.setPassword = function (password) {
+  this.password = bCrypt.hashSync(password, bCrypt.genSaltSync(8))
+}
+
+userSchema.methods.validPassword = function (password) {
+  return bCrypt.compareSync(password, this.password)
+}
 
 const User = model('user', userSchema)
 
