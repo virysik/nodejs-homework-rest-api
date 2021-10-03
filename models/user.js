@@ -1,4 +1,4 @@
-const { Schema, SchemaTypes, model } = require('mongoose')
+const { Schema, model } = require('mongoose')
 const Joi = require('joi')
 const bCrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -25,10 +25,6 @@ const userSchema = Schema(
       type: String,
       default: null,
     },
-    owner: {
-      type: SchemaTypes.ObjectId,
-      ref: 'user',
-    },
   },
   { versionKey: false, timestamps: true },
 )
@@ -43,7 +39,6 @@ const joiAuthSchema = Joi.object({
     }),
   subscription: Joi.string().default('starter'),
   token: Joi.string().default(null),
-  owner: Joi.string(),
 })
 
 userSchema.methods.setPassword = function (password) {
