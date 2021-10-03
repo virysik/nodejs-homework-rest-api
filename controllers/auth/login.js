@@ -13,7 +13,8 @@ const login = async (req, res) => {
     throw new Unauthorized('Email or password is wrong')
   }
 
-  const token = '1234.5678.gghj'
+  const token = user.createToken()
+
   res.json({
     status: 'success',
     code: 200,

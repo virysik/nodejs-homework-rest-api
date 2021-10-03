@@ -1,6 +1,7 @@
 const { Schema, SchemaTypes, model } = require('mongoose')
 const Joi = require('joi')
 const bCrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const userSchema = Schema(
   {
@@ -51,6 +52,13 @@ userSchema.methods.setPassword = function (password) {
 
 userSchema.methods.validPassword = function (password) {
   return bCrypt.compareSync(password, this.password)
+}
+
+const { SECRET_KEY } = process.env
+
+userSchema.methods.createToken = function () {
+  const payload = { _id: this._id }
+  return jwt.sign(payload, SECRET_KEY)
 }
 
 const User = model('user', userSchema)
