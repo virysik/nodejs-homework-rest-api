@@ -2,14 +2,14 @@ const { Contact } = require('../../models')
 const { NotFound } = require('http-errors')
 
 const updateById = async (req, res) => {
+  const { _id } = req.user
   const { contactId } = req.params
-  const contact = await Contact.findByIdAndUpdate(
-    contactId,
+  const contact = await Contact.findOneAndUpdate(
+    { _id: contactId, owner: _id },
     req.body,
     {
       new: true,
     },
-    '_id name email phone favorite',
   )
 
   if (!contact) {
