@@ -41,6 +41,10 @@ const joiAuthSchema = Joi.object({
   token: Joi.string().default(null),
 })
 
+const joiSubscrSchema = Joi.object({
+  subscription: Joi.string().valid('starter', 'pro', 'business').required(),
+})
+
 userSchema.methods.setPassword = function (password) {
   this.password = bCrypt.hashSync(password, bCrypt.genSaltSync(8))
 }
@@ -60,5 +64,6 @@ const User = model('user', userSchema)
 
 module.exports = {
   joiAuthSchema,
+  joiSubscrSchema,
   User,
 }

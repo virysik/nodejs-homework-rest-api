@@ -2,7 +2,7 @@ const express = require('express')
 
 const ctrl = require('../../controllers/auth')
 
-const { joiAuthSchema } = require('../../models/user')
+const { joiAuthSchema, joiSubscrSchema } = require('../../models/user')
 const {
   controllerWrapper,
   validation,
@@ -19,5 +19,11 @@ router.post(
 router.post('/login', validation(joiAuthSchema), controllerWrapper(ctrl.login))
 router.get('/logout', authenticate, controllerWrapper(ctrl.logout))
 router.get('/current', authenticate, controllerWrapper(ctrl.current))
+router.patch(
+  '/',
+  authenticate,
+  validation(joiSubscrSchema),
+  controllerWrapper(ctrl.updateSubscr),
+)
 
 module.exports = router
