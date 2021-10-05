@@ -1,4 +1,5 @@
 const { User } = require('../../models')
+const { sendSuccessRes } = require('../../helpers')
 
 const updateSubscr = async (req, res) => {
   const { _id } = req.user
@@ -10,11 +11,8 @@ const updateSubscr = async (req, res) => {
       new: true,
     },
   )
-  res.json({
-    status: 'success',
-    code: 200,
-    data: updatedUser,
-  })
+
+  sendSuccessRes(res, { updatedUser })
 }
 
 module.exports = updateSubscr

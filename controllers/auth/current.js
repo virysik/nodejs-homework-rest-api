@@ -1,5 +1,6 @@
 const { User } = require('../../models')
 const { Unauthorized } = require('http-errors')
+const { sendSuccessRes } = require('../../helpers')
 
 const current = async (req, res) => {
   const { _id } = req.user
@@ -9,13 +10,7 @@ const current = async (req, res) => {
     throw new Unauthorized('Not authorized')
   }
 
-  res.json({
-    status: 'success',
-    code: 200,
-    data: {
-      user,
-    },
-  })
+  sendSuccessRes(res, { user })
 }
 
 module.exports = current

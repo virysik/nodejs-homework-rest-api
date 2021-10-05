@@ -1,4 +1,5 @@
 const { Contact } = require('../../models')
+const { sendSuccessRes } = require('../../helpers')
 
 const getAll = async (req, res) => {
   const { _id } = req.user
@@ -7,11 +8,7 @@ const getAll = async (req, res) => {
     '_id name email phone favorite',
   )
 
-  res.json({
-    status: 'success',
-    code: 200,
-    data: { result: contacts },
-  })
+  sendSuccessRes(res, { result: contacts })
 }
 
 module.exports = getAll

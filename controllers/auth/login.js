@@ -1,5 +1,6 @@
 const { User } = require('../../models')
 const { NotFound, Unauthorized } = require('http-errors')
+const { sendSuccessRes } = require('../../helpers')
 
 const login = async (req, res) => {
   const { email, password } = req.body
@@ -20,14 +21,8 @@ const login = async (req, res) => {
     email: user.email,
     subscription: user.subscription,
   }
-  res.json({
-    status: 'success',
-    code: 200,
-    data: {
-      token,
-      user: response,
-    },
-  })
+
+  sendSuccessRes(res, { token, user: response })
 }
 
 module.exports = login

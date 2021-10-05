@@ -1,5 +1,6 @@
 const { User } = require('../../models')
 const { Conflict } = require('http-errors')
+const { sendSuccessRes } = require('../../helpers')
 
 const signup = async (req, res) => {
   const { email, password } = req.body
@@ -14,16 +15,7 @@ const signup = async (req, res) => {
   newUser.save()
   const { subscription } = newUser
 
-  res.status(201).json({
-    status: 'success',
-    code: 201,
-    data: {
-      user: {
-        email,
-        subscription,
-      },
-    },
-  })
+  sendSuccessRes(res, { user: { email, subscription } }, 201)
 }
 
 module.exports = signup

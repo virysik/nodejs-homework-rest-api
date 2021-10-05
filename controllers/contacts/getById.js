@@ -1,5 +1,6 @@
 const { Contact } = require('../../models')
 const { NotFound } = require('http-errors')
+const { sendSuccessRes } = require('../../helpers')
 
 const getById = async (req, res) => {
   const { _id } = req.user
@@ -13,11 +14,7 @@ const getById = async (req, res) => {
     throw new NotFound(`Contact with id:${contactId} was not found`)
   }
 
-  res.json({
-    status: 'success',
-    code: 200,
-    data: { result: contact },
-  })
+  sendSuccessRes(res, { result: contact })
 }
 
 module.exports = getById
