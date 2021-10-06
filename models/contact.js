@@ -1,5 +1,6 @@
 const { Schema, SchemaTypes, model } = require('mongoose')
 const Joi = require('joi')
+const mongoosePaginate = require('mongoose-paginate-v2')
 
 const contactSchema = Schema(
   {
@@ -40,6 +41,7 @@ const updateContactJoiSchema = Joi.object({
     .messages({ 'any.required': 'missing field favorite' }),
 })
 
+contactSchema.plugin(mongoosePaginate)
 const Contact = model('contact', contactSchema)
 
 module.exports = {
