@@ -1,12 +1,11 @@
 const { Contact } = require('../../models')
+const { sendSuccessRes } = require('../../helpers')
 
 const add = async (req, res) => {
-  const contact = await Contact.create(req.body)
-  res.status(201).json({
-    status: 'success',
-    code: 201,
-    data: { result: contact },
-  })
+  const newContact = { ...req.body, owner: req.user._id }
+  const contact = await Contact.create(newContact)
+
+  sendSuccessRes(res, { result: contact }, 201)
 }
 
 module.exports = add
