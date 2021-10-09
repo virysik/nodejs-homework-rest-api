@@ -14,6 +14,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 app.use(helmet())
 app.use(logger(formatsLogger))
 app.use(cors())
+app.use(express.static('public'))
 app.use(express.json({ limit: 10000 }))
 app.use(boolParser())
 

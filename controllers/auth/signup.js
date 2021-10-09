@@ -1,6 +1,7 @@
 const { User } = require('../../models')
 const { Conflict } = require('http-errors')
 const { sendSuccessRes } = require('../../helpers')
+const gravatar = require('gravatar')
 
 const signup = async (req, res) => {
   const { email, password } = req.body
@@ -12,10 +13,12 @@ const signup = async (req, res) => {
 
   const newUser = await new User({ email })
   newUser.setPassword(password)
+  newUser.avatarURL = gravatar.url(email)
   newUser.save()
-  const { subscription } = newUser
 
-  sendSuccessRes(res, { user: { email, subscription } }, 201)
+  const { subscription, avatarURL } = newUser
+
+  sendSuccessRes(res, { user: { email, subscription, avatarURL } }, 201)
 }
 
 module.exports = signup

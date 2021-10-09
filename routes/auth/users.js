@@ -7,6 +7,7 @@ const {
   controllerWrapper,
   validation,
   authenticate,
+  upload,
 } = require('../../middlewares')
 
 const router = express.Router()
@@ -24,6 +25,12 @@ router.patch(
   authenticate,
   validation(joiSubscrSchema),
   controllerWrapper(ctrl.updateSubscr),
+)
+router.patch(
+  '/avatars',
+  authenticate,
+  upload.single('image'),
+  controllerWrapper(ctrl.updateAvatar),
 )
 
 module.exports = router
