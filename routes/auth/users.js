@@ -29,7 +29,7 @@ router.patch(
 router.patch(
   '/avatars',
   authenticate,
-  upload.single('image'),
+  upload.single('avatar'),
   controllerWrapper(ctrl.updateAvatar),
 )
 
