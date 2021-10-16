@@ -3,6 +3,7 @@ const login = require('./login')
 const logout = require('./logout')
 const current = require('./current')
 const updateSubscr = require('./updateSubscr')
+const updateAvatar = require('./updateAvatar')
 
 module.exports = {
   signup,
@@ -10,4 +11,5 @@ module.exports = {
   logout,
   current,
   updateSubscr,
+  updateAvatar,
 }
