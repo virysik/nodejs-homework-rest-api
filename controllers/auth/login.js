@@ -4,7 +4,10 @@ const { sendSuccessRes } = require('../../helpers')
 
 const login = async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({ email }, 'email password subscription')
+  const user = await User.findOne(
+    { email },
+    'email password subscription verify',
+  )
 
   if (!user) {
     throw new NotFound('Not found')
@@ -12,6 +15,10 @@ const login = async (req, res) => {
 
   if (!user.validPassword(password) || email !== user.email) {
     throw new Unauthorized('Email or password is wrong')
+  }
+
+  if (!user.verify) {
+    throw new Unauthorized('Email is not verified')
   }
 
   const token = user.createToken()
